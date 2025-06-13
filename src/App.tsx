@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import Boutique from "./pages/Boutique";
 import AdminDashboard from "./pages/AdminDashboard";
 import MonCompte from "./pages/MonCompte";
+import APropos from "./pages/APropos";
+import Panier from "./pages/Panier";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +25,8 @@ const App = () => (
           <Route path="/boutique" element={<Boutique />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/mon-compte" element={<MonCompte />} />
+          <Route path="/a-propos" element={<APropos />} />
+          <Route path="/panier" element={<Panier />} />
           <Route path="/vetements-hommes" element={<Boutique />} />
           <Route path="/chaussures-hommes" element={<Boutique />} />
           <Route path="/sacs-femmes" element={<Boutique />} />
