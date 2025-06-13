@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ShoppingBag, User, Search, MapPin, Phone } from 'lucide-react';
+import { Menu, X, ShoppingBag, User, Search, MapPin, Phone, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
@@ -19,60 +19,72 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Top bar avec info Congo */}
-      <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-red-500 text-white py-2 px-4 text-center text-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-center space-x-6">
+      {/* Top bar modern */}
+      <div className="congo-forest text-white py-3 px-4 text-center text-sm relative overflow-hidden">
+        <div className="absolute inset-0 pattern-dots opacity-20"></div>
+        <div className="max-w-7xl mx-auto flex items-center justify-center space-x-8 relative z-10">
           <div className="flex items-center space-x-2">
             <MapPin className="h-4 w-4" />
-            <span className="font-medium">Pointe-Noire, République du Congo</span>
+            <span className="font-medium">Congo-Brazzaville</span>
           </div>
           <div className="hidden md:flex items-center space-x-2">
             <Phone className="h-4 w-4" />
             <span>+242 06 123 45 67</span>
           </div>
-          <div className="hidden md:block">
-            <span className="animate-pulse">🇨🇬 Livraison dans tout le Congo 🇨🇬</span>
+          <div className="hidden md:flex items-center space-x-2">
+            <Sparkles className="h-4 w-4 animate-pulse" />
+            <span>Livraison gratuite dès 75 000 FCFA</span>
+            <Sparkles className="h-4 w-4 animate-pulse" />
           </div>
         </div>
       </div>
 
-      <nav className="fixed top-[44px] left-0 right-0 z-50 glass-effect border-b border-orange-200">
+      <nav className="fixed top-[52px] left-0 right-0 z-50 card-modern border-b border-emerald-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link to="/" className="text-2xl font-bold tracking-wide bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent hover:from-orange-700 hover:to-red-700 transition-all">
-              BB_COLLECTION
-              <div className="text-xs text-orange-600 font-normal">Pointe-Noire • Congo</div>
+          <div className="flex justify-between items-center h-20">
+            {/* Logo modern */}
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="w-12 h-12 congo-forest rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Sparkles className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <div className="text-2xl font-display font-bold text-gradient">
+                  BB_COLLECTION
+                </div>
+                <div className="text-xs text-emerald-600 font-medium">
+                  Congo-Brazzaville
+                </div>
+              </div>
             </Link>
 
-            {/* Desktop Menu */}
+            {/* Desktop Menu modern */}
             <div className="hidden lg:flex items-center space-x-8">
               {menuItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-gray-700 hover:text-orange-600 transition-colors font-medium tracking-wide relative group"
+                  className="text-gray-700 hover:text-emerald-600 transition-all font-medium relative group py-2"
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 transition-all group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 transition-all group-hover:w-full rounded-full"></span>
                 </Link>
               ))}
             </div>
 
-            {/* Icons */}
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon" className="hidden sm:flex hover:bg-orange-50">
-                <Search className="h-5 w-5 text-orange-600" />
+            {/* Icons modern */}
+            <div className="flex items-center space-x-3">
+              <Button variant="ghost" size="icon" className="hidden sm:flex hover:bg-emerald-50 rounded-2xl">
+                <Search className="h-5 w-5 text-emerald-600" />
               </Button>
               <Link to="/mon-compte">
-                <Button variant="ghost" size="icon" className="hover:bg-orange-50">
-                  <User className="h-5 w-5 text-orange-600" />
+                <Button variant="ghost" size="icon" className="hover:bg-emerald-50 rounded-2xl">
+                  <User className="h-5 w-5 text-emerald-600" />
                 </Button>
               </Link>
               <Link to="/panier">
-                <Button variant="ghost" size="icon" className="relative hover:bg-orange-50">
-                  <ShoppingBag className="h-5 w-5 text-orange-600" />
-                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse-warm">
+                <Button variant="ghost" size="icon" className="relative hover:bg-emerald-50 rounded-2xl">
+                  <ShoppingBag className="h-5 w-5 text-emerald-600" />
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse">
                     0
                   </span>
                 </Button>
@@ -82,24 +94,24 @@ const Navbar = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden hover:bg-orange-50"
+                className="lg:hidden hover:bg-emerald-50 rounded-2xl"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? <X className="h-5 w-5 text-orange-600" /> : <Menu className="h-5 w-5 text-orange-600" />}
+                {isMenuOpen ? <X className="h-5 w-5 text-emerald-600" /> : <Menu className="h-5 w-5 text-emerald-600" />}
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu modern */}
         {isMenuOpen && (
-          <div className="lg:hidden glass-effect border-t border-orange-200">
-            <div className="px-4 py-4 space-y-3">
+          <div className="lg:hidden card-modern border-t border-emerald-100 mt-1">
+            <div className="px-4 py-6 space-y-4">
               {menuItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block text-gray-700 hover:text-orange-600 transition-colors font-medium py-2 border-b border-orange-100 last:border-b-0"
+                  className="block text-gray-700 hover:text-emerald-600 transition-colors font-medium py-3 border-b border-emerald-50 last:border-b-0 hover:bg-emerald-50 px-4 rounded-xl"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
