@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Star, Sparkles, ShoppingBag, CreditCard, Smartphone, Wallet, Heart, Eye, TrendingUp } from 'lucide-react';
+import { ShoppingBag, Star, ArrowRight, Sparkles, Shield, Truck, CreditCard, MapPin, Users, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -10,36 +10,36 @@ import ProductCard from '@/components/ProductCard';
 const featuredProducts = [
   {
     id: 1,
-    name: "Costume Executive Premium",
-    price: 125000,
-    image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&h=600&fit=crop",
+    name: "Costume Élégant Premium",
+    price: 180000,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
     category: "Vêtements Hommes",
     rating: 4.9,
     isNew: true
   },
   {
     id: 2,
-    name: "Sac Élégance Africaine",
-    price: 65000,
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop", 
+    name: "Sac à Main Cuir Artisanal",
+    price: 85000,
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80",
     category: "Sacs Femmes",
     rating: 4.8,
     isNew: false
   },
   {
     id: 3,
-    name: "Chemise Moderne Sophistiquée",
-    price: 35000,
-    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop",
-    category: "Vêtements Hommes", 
+    name: "Baskets Premium Collection",
+    price: 95000,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80",
+    category: "Chaussures Hommes",
     rating: 4.7,
     isNew: true
   },
   {
     id: 4,
-    name: "Robe Cocktail Chic",
-    price: 85000,
-    image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&h=600&fit=crop",
+    name: "Robe Cocktail Élégante",
+    price: 120000,
+    image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&q=80",
     category: "Vêtements Femmes",
     rating: 4.9,
     isNew: false
@@ -48,137 +48,132 @@ const featuredProducts = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
-      {/* Hero Section - Modern & Stunning */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Background with modern patterns */}
-        <div className="absolute inset-0 congo-forest opacity-10 pattern-dots"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/20 via-transparent to-teal-900/20"></div>
+      {/* Hero Section Ultra Moderne */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+        <div className="absolute inset-0 congo-sunset animate-gradient"></div>
+        <div className="absolute inset-0 pattern-dots opacity-30"></div>
         
-        {/* Floating elements */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full opacity-20 animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full opacity-30 animate-float" style={{animationDelay: '2s'}}></div>
-        
-        <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-7xl md:text-9xl font-display font-bold text-gradient mb-6 animate-fade-in text-shadow-lg">
-              BB_COLLECTION
-            </h1>
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Sparkles className="h-8 w-8 text-emerald-600 animate-pulse" />
-              <span className="text-2xl md:text-3xl font-medium text-emerald-800 font-display">
-                Mode Authentique Congolaise
-              </span>
-              <Sparkles className="h-8 w-8 text-emerald-600 animate-pulse" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
+          <div className="space-y-8 animate-fade-in">
+            <div className="space-y-4">
+              <h1 className="text-6xl md:text-8xl font-display font-black text-white leading-tight tracking-tight">
+                BB_COLLECTION
+              </h1>
+              <p className="text-xl md:text-3xl text-white/90 font-light max-w-3xl mx-auto leading-relaxed">
+                L'élégance africaine rencontre le style moderne
+              </p>
+              <div className="flex items-center justify-center space-x-3 text-white/80">
+                <MapPin className="h-5 w-5" />
+                <span className="font-medium">Congo-Brazzaville</span>
+                <Sparkles className="h-5 w-5 animate-pulse" />
+              </div>
             </div>
-            <div className="text-lg text-gray-600 font-light">
-              🇨🇬 Congo-Brazzaville • Excellence & Style
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <Link to="/boutique">
+                <Button className="btn-congo text-white px-12 py-6 text-xl font-bold tracking-wide rounded-3xl shadow-2xl group">
+                  <ShoppingBag className="mr-3 h-6 w-6 group-hover:animate-bounce" />
+                  Découvrir la Collection
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                </Button>
+              </Link>
+              <Button variant="outline" className="bg-white/10 border-white/30 text-white px-8 py-6 text-lg font-semibold rounded-3xl backdrop-blur hover:bg-white/20 transition-all">
+                <Star className="mr-2 h-5 w-5" />
+                Nos Nouveautés
+              </Button>
+            </div>
+            
+            <div className="flex items-center justify-center space-x-12 pt-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white">500+</div>
+                <div className="text-white/70 font-medium">Produits</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white">1000+</div>
+                <div className="text-white/70 font-medium">Clients</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-white">4.9</div>
+                <div className="text-white/70 font-medium">★ Note</div>
+              </div>
             </div>
           </div>
-          
-          <p className="text-xl md:text-2xl text-gray-700 mb-12 font-light max-w-3xl mx-auto leading-relaxed">
-            Découvrez l'élégance moderne africaine avec notre collection exclusive 
-            de vêtements et accessoires haut de gamme
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            <Link to="/boutique">
-              <Button className="btn-congo text-white px-10 py-4 text-lg font-semibold rounded-full hover-lift shadow-lg">
-                Découvrir la Collection
-                <ArrowRight className="ml-3 h-6 w-6" />
-              </Button>
-            </Link>
-            <Link to="/nouveautes">
-              <Button variant="outline" className="border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 px-10 py-4 text-lg font-semibold rounded-full hover-lift">
-                Nouveautés 2024
-                <Star className="ml-3 h-6 w-6" />
-              </Button>
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-emerald-700">500+</div>
-              <div className="text-gray-600 font-medium">Produits</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-emerald-700">2K+</div>
-              <div className="text-gray-600 font-medium">Clients Satisfaits</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-emerald-700">4.9★</div>
-              <div className="text-gray-600 font-medium">Note Moyenne</div>
-            </div>
+        </div>
+        
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-8 h-8 border-2 border-white rounded-full flex items-center justify-center">
+            <ArrowRight className="h-4 w-4 text-white rotate-90" />
           </div>
         </div>
       </section>
 
-      {/* Payment Methods - Modern Cards */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
+      {/* Avantages Section Moderne */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
-              Modes de Paiement
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
+              Pourquoi choisir <span className="text-gradient">BB_COLLECTION</span> ?
             </h2>
-            <p className="text-xl text-gray-600 font-light">
-              Paiement sécurisé et flexible pour votre confort
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Une expérience d'achat exceptionnelle avec des produits de qualité premium
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="card-modern rounded-3xl p-8 text-center hover-lift group">
-              <div className="w-20 h-20 congo-forest rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform animate-pulse-glow">
-                <Smartphone className="h-10 w-10 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                icon: Shield,
+                title: "Qualité Premium",
+                description: "Matériaux sélectionnés avec soin pour une qualité exceptionnelle"
+              },
+              {
+                icon: Truck,
+                title: "Livraison Rapide",
+                description: "Livraison gratuite dès 75 000 FCFA partout au Congo"
+              },
+              {
+                icon: CreditCard,
+                title: "Paiement Sécurisé",
+                description: "Mobile Money, Airtel Money et carte bancaire acceptés"
+              },
+              {
+                icon: Users,
+                title: "Service Client",
+                description: "Une équipe dédiée pour vous accompagner 7j/7"
+              }
+            ].map((feature, index) => (
+              <div key={index} className="text-center group">
+                <div className="w-20 h-20 congo-forest rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <feature.icon className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
               </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">Mobile Money</h3>
-              <p className="text-gray-600 font-medium leading-relaxed">
-                Paiement instantané et sécurisé via Mobile Money Congo
-              </p>
-            </div>
-            
-            <div className="card-modern rounded-3xl p-8 text-center hover-lift group">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform animate-pulse-glow">
-                <Wallet className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">Airtel Money</h3>
-              <p className="text-gray-600 font-medium leading-relaxed">
-                Transaction rapide et fiable avec Airtel Money
-              </p>
-            </div>
-            
-            <div className="card-modern rounded-3xl p-8 text-center hover-lift group">
-              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform animate-pulse-glow">
-                <CreditCard className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">Carte Bancaire</h3>
-              <p className="text-gray-600 font-medium leading-relaxed">
-                Visa, Mastercard - Paiement international sécurisé
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products - Modern Grid */}
-      <section className="py-20 px-4 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
-        <div className="max-w-7xl mx-auto">
+      {/* Produits Phares */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full font-medium mb-4">
-              <TrendingUp className="h-5 w-5" />
-              Tendances du moment
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <Sparkles className="h-8 w-8 text-emerald-500 animate-pulse" />
+              <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900">
+                Nos <span className="text-gradient">Coups de Cœur</span>
+              </h2>
+              <Sparkles className="h-8 w-8 text-emerald-500 animate-pulse" />
             </div>
-            <h2 className="text-5xl md:text-6xl font-display font-bold text-gray-900 mb-6">
-              Nos Coups de Cœur
-            </h2>
-            <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
-              Une sélection exclusive de pièces d'exception qui allient tradition congolaise et modernité internationale
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Découvrez notre sélection de produits tendance, choisis avec passion
             </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -186,77 +181,38 @@ const Index = () => {
           
           <div className="text-center">
             <Link to="/boutique">
-              <Button className="btn-congo text-white px-12 py-4 text-lg font-semibold rounded-full hover-lift shadow-xl">
-                Voir Toute la Collection
-                <Eye className="ml-3 h-6 w-6" />
+              <Button className="btn-congo px-12 py-4 text-lg font-bold tracking-wide rounded-2xl shadow-xl group">
+                Voir toute la collection
+                <TrendingUp className="ml-3 h-5 w-5 group-hover:translate-x-2 transition-transform" />
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Features Section - Modern Icons */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center group">
-              <div className="w-20 h-20 congo-forest rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Star className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Qualité Premium</h3>
-              <p className="text-gray-600 font-medium leading-relaxed">
-                Sélection rigoureuse de matériaux africains authentiques et de première qualité
-              </p>
-            </div>
-            
-            <div className="text-center group">
-              <div className="w-20 h-20 congo-forest rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Heart className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Service Personnalisé</h3>
-              <p className="text-gray-600 font-medium leading-relaxed">
-                Accompagnement sur-mesure par notre équipe passionnée basée au Congo
-              </p>
-            </div>
-            
-            <div className="text-center group">
-              <div className="w-20 h-20 congo-forest rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <ShoppingBag className="h-10 w-10 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Livraison Express</h3>
-              <p className="text-gray-600 font-medium leading-relaxed">
-                Livraison rapide dans tout le Congo et expédition internationale
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter - Modern CTA */}
-      <section className="py-20 px-4 congo-forest relative overflow-hidden">
+      {/* Call to Action Final */}
+      <section className="py-24 congo-forest relative overflow-hidden">
         <div className="absolute inset-0 pattern-grid opacity-20"></div>
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
-            Restez Connecté
-          </h2>
-          <p className="text-xl text-emerald-100 mb-10 font-light">
-            Recevez en exclusivité nos nouveautés, promotions et actualités mode congolaise
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto mb-8">
-            <input 
-              type="email" 
-              placeholder="Votre adresse email"
-              className="flex-1 px-6 py-4 bg-white/20 text-white rounded-2xl backdrop-blur border border-white/30 placeholder-white/80 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
-            />
-            <Button className="bg-white text-emerald-700 hover:bg-emerald-50 px-8 py-4 font-semibold rounded-2xl hover-lift">
-              S'abonner
-            </Button>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <div className="space-y-8">
+            <h2 className="text-4xl md:text-6xl font-display font-bold text-white leading-tight">
+              Rejoignez la famille <br />
+              <span className="text-yellow-300">BB_COLLECTION</span>
+            </h2>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              Inscrivez-vous dès maintenant et bénéficiez de 10% de réduction sur votre première commande
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/mon-compte">
+                <Button className="bg-white text-emerald-600 hover:bg-gray-100 px-10 py-4 text-lg font-bold rounded-2xl shadow-xl">
+                  Créer mon compte
+                </Button>
+              </Link>
+              <Button variant="outline" className="border-white text-white hover:bg-white/10 px-10 py-4 text-lg font-semibold rounded-2xl">
+                En savoir plus
+              </Button>
+            </div>
           </div>
-          
-          <p className="text-emerald-200 font-medium">
-            🇨🇬 Fier d'être congolais • Livraison gratuite dès 75 000 FCFA
-          </p>
         </div>
       </section>
 
