@@ -1,210 +1,282 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Plus, Minus, Trash2, ArrowLeft, CreditCard, Smartphone } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, Trash2, ShoppingBag, CreditCard, Truck, Shield, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  size: string;
+  color: string;
+  quantity: number;
+}
+
 const Panier = () => {
-  const [cartItems, setCartItems] = useState([
+  const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: 1,
-      name: "Costume Élégant Premium",
+      name: "Costume Élégant Premium Congo",
       price: 180000,
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
-      quantity: 1,
-      size: "L"
+      image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400",
+      size: "L",
+      color: "Noir",
+      quantity: 1
     },
     {
       id: 2,
-      name: "Sac à Main Cuir Artisanal",
+      name: "Sac Cuir Artisanal Brazzaville",
       price: 85000,
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80",
-      quantity: 2,
-      size: "Unique"
+      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400",
+      size: "Unique",
+      color: "Marron",
+      quantity: 2
     }
   ]);
 
-  const updateQuantity = (id: number, change: number) => {
-    setCartItems(items => 
-      items.map(item => 
-        item.id === id 
-          ? { ...item, quantity: Math.max(0, item.quantity + change) }
-          : item
-      ).filter(item => item.quantity > 0)
+  const [promoCode, setPromoCode] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('fr-CG', {
+      style: 'currency',
+      currency: 'XAF',
+      minimumFractionDigits: 0,
+    }).format(price);
+  };
+
+  const updateQuantity = (id: number, newQuantity: number) => {
+    if (newQuantity < 1) return;
+    setCartItems(items =>
+      items.map(item =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
     );
+    console.log(`Updated item ${id} quantity to ${newQuantity}`);
   };
 
   const removeItem = (id: number) => {
     setCartItems(items => items.filter(item => item.id !== id));
+    console.log(`Removed item ${id} from cart`);
   };
 
-  const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const applyPromoCode = () => {
+    console.log(`Applying promo code: ${promoCode}`);
+    // Add promo code logic here
+  };
+
+  const proceedToCheckout = async () => {
+    setIsLoading(true);
+    console.log('Proceeding to checkout...');
+    
+    // Simulate checkout process
+    setTimeout(() => {
+      setIsLoading(false);
+      console.log('Checkout completed!');
+    }, 2000);
+  };
+
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const shipping = subtotal > 75000 ? 0 : 5000;
+  const tax = subtotal * 0.1;
+  const total = subtotal + shipping + tax;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-black text-white">
       <Navbar />
       
-      <div className="pt-24 pb-16">
-        {/* Header */}
-        <div className="bg-white py-12 border-b">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <Link to="/boutique">
-                  <Button variant="ghost" size="sm" className="text-gray-600">
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Continuer mes achats
-                  </Button>
-                </Link>
-              </div>
-              <div className="flex items-center space-x-3">
-                <ShoppingBag className="h-8 w-8 text-emerald-600" />
-                <h1 className="text-3xl font-display font-bold text-gray-900">
-                  Mon Panier
-                </h1>
-              </div>
+      <div className="pt-32 pb-20">
+        <div className="max-w-7xl mx-auto px-4">
+          
+          {/* Header Ultra */}
+          <div className="mb-12">
+            <Link to="/boutique" className="inline-flex items-center text-blue-400 hover:text-white transition-colors mb-6 group">
+              <ArrowLeft className="mr-2 h-5 w-5 group-hover:-translate-x-1 transition-transform" />
+              Continuer mes achats
+            </Link>
+            
+            <div className="text-center space-y-4">
+              <h1 className="text-5xl md:text-6xl font-space font-bold gradient-text">
+                Mon Panier
+              </h1>
+              <p className="text-xl text-gray-400">
+                {cartItems.length} article{cartItems.length > 1 ? 's' : ''} dans votre panier
+              </p>
             </div>
           </div>
-        </div>
 
-        <div className="max-w-6xl mx-auto px-4 py-8">
           {cartItems.length === 0 ? (
-            /* Panier Vide */
-            <div className="text-center py-24">
-              <div className="w-32 h-32 congo-forest/10 rounded-full flex items-center justify-center mx-auto mb-8">
-                <ShoppingBag className="h-16 w-16 text-emerald-600" />
+            
+            // Empty Cart Ultra
+            <div className="text-center py-20">
+              <div className="w-32 h-32 gradient-primary rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse">
+                <ShoppingBag className="h-16 w-16 text-white" />
               </div>
-              <h2 className="text-3xl font-display font-bold text-gray-900 mb-4">
-                Votre panier est vide
-              </h2>
-              <p className="text-xl text-gray-600 mb-8 max-w-md mx-auto">
-                Découvrez notre collection et ajoutez vos articles préférés
-              </p>
+              <h2 className="text-3xl font-bold text-white mb-4">Votre panier est vide</h2>
+              <p className="text-gray-400 mb-8">Découvrez notre collection et ajoutez vos coups de cœur</p>
               <Link to="/boutique">
-                <Button className="btn-congo px-8 py-4 text-lg font-bold rounded-2xl">
-                  Découvrir nos produits
+                <Button className="btn-ultra px-12 py-4 text-lg font-bold rounded-full">
+                  Explorer la boutique
                 </Button>
               </Link>
             </div>
+            
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Articles du panier */}
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+              
+              {/* Cart Items Ultra */}
               <div className="lg:col-span-2 space-y-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                  Articles ({cartItems.length})
-                </h2>
-                
-                {cartItems.map((item) => (
-                  <div key={item.id} className="card-modern rounded-2xl p-6 hover-lift">
-                    <div className="flex flex-col sm:flex-row gap-6">
-                      <div className="w-full sm:w-32 h-32 rounded-xl overflow-hidden">
-                        <img 
-                          src={item.image} 
+                {cartItems.map((item, index) => (
+                  <div key={item.id} className="card-ultra rounded-3xl p-6 animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
+                      
+                      {/* Product Image */}
+                      <div className="relative">
+                        <img
+                          src={item.image}
                           alt={item.name}
-                          className="w-full h-full object-cover"
+                          className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-2xl"
                         />
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
                       </div>
                       
-                      <div className="flex-1">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                          <div className="mb-4 sm:mb-0">
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">
-                              {item.name}
-                            </h3>
-                            <p className="text-gray-600">Taille: {item.size}</p>
-                            <p className="text-2xl font-bold text-emerald-600 mt-2">
-                              {item.price.toLocaleString()} FCFA
-                            </p>
-                          </div>
-                          
-                          <div className="flex items-center justify-between sm:flex-col sm:items-end space-y-4">
-                            <div className="flex items-center space-x-3">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => updateQuantity(item.id, -1)}
-                                className="w-8 h-8 p-0 rounded-full"
-                              >
-                                <Minus className="h-4 w-4" />
-                              </Button>
-                              <span className="text-lg font-semibold w-8 text-center">
-                                {item.quantity}
-                              </span>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => updateQuantity(item.id, 1)}
-                                className="w-8 h-8 p-0 rounded-full"
-                              >
-                                <Plus className="h-4 w-4" />
-                              </Button>
-                            </div>
-                            
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeItem(item.id)}
-                              className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                            >
-                              <Trash2 className="h-4 w-4 mr-2" />
-                              Supprimer
-                            </Button>
-                          </div>
+                      {/* Product Info */}
+                      <div className="flex-1 space-y-3">
+                        <h3 className="text-xl font-bold text-white">{item.name}</h3>
+                        <div className="flex items-center space-x-4 text-sm text-gray-400">
+                          <span>Taille: <span className="text-white font-medium">{item.size}</span></span>
+                          <span>Couleur: <span className="text-white font-medium">{item.color}</span></span>
                         </div>
+                        <div className="text-2xl font-bold gradient-text">
+                          {formatPrice(item.price)}
+                        </div>
+                      </div>
+                      
+                      {/* Quantity Controls */}
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-3 glass-ultra rounded-2xl p-2">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="h-8 w-8 text-white hover:bg-white/10 rounded-xl"
+                          >
+                            <Minus className="h-4 w-4" />
+                          </Button>
+                          <span className="w-8 text-center font-bold text-white">{item.quantity}</span>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            className="h-8 w-8 text-white hover:bg-white/10 rounded-xl"
+                          >
+                            <Plus className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => removeItem(item.id)}
+                          className="h-10 w-10 text-red-400 hover:bg-red-400/10 rounded-2xl"
+                        >
+                          <Trash2 className="h-5 w-5" />
+                        </Button>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* Résumé de commande */}
+              
+              {/* Order Summary Ultra */}
               <div className="space-y-6">
-                <div className="card-modern rounded-2xl p-6 sticky top-24">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                    Résumé de commande
-                  </h3>
+                
+                {/* Promo Code */}
+                <div className="card-ultra rounded-3xl p-6">
+                  <h3 className="text-xl font-bold text-white mb-4">Code Promo</h3>
+                  <div className="flex space-x-3">
+                    <Input
+                      type="text"
+                      placeholder="Entrez votre code..."
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      className="glass-ultra border-white/20 text-white placeholder:text-gray-400 rounded-2xl"
+                    />
+                    <Button onClick={applyPromoCode} className="btn-ultra px-6 rounded-2xl">
+                      Appliquer
+                    </Button>
+                  </div>
+                </div>
+                
+                {/* Summary */}
+                <div className="card-ultra rounded-3xl p-6 space-y-6">
+                  <h3 className="text-xl font-bold text-white">Résumé de commande</h3>
                   
-                  <div className="space-y-4 mb-6">
-                    <div className="flex justify-between text-gray-600">
+                  <div className="space-y-4">
+                    <div className="flex justify-between text-gray-400">
                       <span>Sous-total</span>
-                      <span>{total.toLocaleString()} FCFA</span>
+                      <span className="text-white font-medium">{formatPrice(subtotal)}</span>
                     </div>
-                    <div className="flex justify-between text-gray-600">
+                    <div className="flex justify-between text-gray-400">
                       <span>Livraison</span>
-                      <span className="text-emerald-600 font-semibold">Gratuite</span>
+                      <span className={`font-medium ${shipping === 0 ? 'text-green-400' : 'text-white'}`}>
+                        {shipping === 0 ? 'Gratuite' : formatPrice(shipping)}
+                      </span>
                     </div>
-                    <div className="border-t pt-4">
-                      <div className="flex justify-between text-xl font-bold text-gray-900">
-                        <span>Total</span>
-                        <span className="text-emerald-600">{total.toLocaleString()} FCFA</span>
+                    <div className="flex justify-between text-gray-400">
+                      <span>Taxes</span>
+                      <span className="text-white font-medium">{formatPrice(tax)}</span>
+                    </div>
+                    <div className="border-t border-white/10 pt-4">
+                      <div className="flex justify-between">
+                        <span className="text-xl font-bold text-white">Total</span>
+                        <span className="text-2xl font-bold gradient-text">{formatPrice(total)}</span>
                       </div>
                     </div>
                   </div>
-
-                  <div className="space-y-4">
-                    <Button className="w-full btn-congo py-4 text-lg font-bold rounded-xl">
-                      <CreditCard className="mr-3 h-5 w-5" />
-                      Procéder au paiement
-                    </Button>
-                    
-                    <div className="text-center">
-                      <p className="text-sm text-gray-500 mb-3">Modes de paiement acceptés:</p>
-                      <div className="flex justify-center space-x-4">
-                        <div className="flex items-center space-x-2 text-xs text-gray-600">
-                          <Smartphone className="h-4 w-4" />
-                          <span>Mobile Money</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-xs text-gray-600">
-                          <Smartphone className="h-4 w-4" />
-                          <span>Airtel Money</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-xs text-gray-600">
-                          <CreditCard className="h-4 w-4" />
-                          <span>Carte bancaire</span>
-                        </div>
+                  
+                  <Button 
+                    onClick={proceedToCheckout}
+                    disabled={isLoading}
+                    className="w-full btn-ultra py-4 text-lg font-bold rounded-2xl disabled:opacity-50"
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center">
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+                        Traitement<span className="loading-dots"></span>
                       </div>
+                    ) : (
+                      <>
+                        <CreditCard className="mr-3 h-5 w-5" />
+                        Procéder au paiement
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
+                {/* Trust Badges */}
+                <div className="card-ultra rounded-3xl p-6">
+                  <h4 className="text-lg font-bold text-white mb-4">Achats sécurisés</h4>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center space-x-3">
+                      <Shield className="h-5 w-5 text-green-400" />
+                      <span className="text-gray-400">Paiement 100% sécurisé</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Truck className="h-5 w-5 text-blue-400" />
+                      <span className="text-gray-400">Livraison gratuite dès 75 000 FCFA</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Heart className="h-5 w-5 text-red-400" />
+                      <span className="text-gray-400">Retours gratuits sous 30 jours</span>
                     </div>
                   </div>
                 </div>

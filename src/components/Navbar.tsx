@@ -1,122 +1,202 @@
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, ShoppingBag, User, Search, MapPin, Phone, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ShoppingBag, User, Search, MapPin, Phone, Sparkles, Heart, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = [
-    { name: 'Boutique', href: '/boutique' },
-    { name: 'Vêtements Hommes', href: '/vetements-hommes' },
-    { name: 'Chaussures Hommes', href: '/chaussures-hommes' },
-    { name: 'Sacs Femmes', href: '/sacs-femmes' },
-    { name: 'Vêtements Femmes', href: '/vetements-femmes' },
-    { name: 'À propos', href: '/a-propos' },
-    { name: 'Contact', href: '/contact' }
+    { name: 'Boutique', href: '/boutique', isActive: false },
+    { name: 'Hommes', href: '/vetements-hommes', isActive: false },
+    { name: 'Femmes', href: '/vetements-femmes', isActive: false },
+    { name: 'Chaussures', href: '/chaussures-hommes', isActive: false },
+    { name: 'Sacs', href: '/sacs-femmes', isActive: false },
+    { name: 'À propos', href: '/a-propos', isActive: false }
   ];
+
+  const handleMenuClick = (href: string) => {
+    setIsMenuOpen(false);
+    // Simulate navigation
+    console.log(`Navigating to: ${href}`);
+  };
+
+  const handleCartClick = () => {
+    console.log('Opening cart...');
+    // Add cart logic here
+  };
+
+  const handleSearchClick = () => {
+    console.log('Opening search...');
+    // Add search logic here
+  };
+
+  const handleAccountClick = () => {
+    console.log('Opening account...');
+    // Add account logic here
+  };
 
   return (
     <>
-      {/* Top bar modern */}
-      <div className="congo-forest text-white py-3 px-4 text-center text-sm relative overflow-hidden">
-        <div className="absolute inset-0 pattern-dots opacity-20"></div>
-        <div className="max-w-7xl mx-auto flex items-center justify-center space-x-8 relative z-10">
-          <div className="flex items-center space-x-2">
-            <MapPin className="h-4 w-4" />
-            <span className="font-medium">Congo-Brazzaville</span>
+      {/* Top Ultra Bar */}
+      <div className="gradient-primary text-white py-3 px-4 text-center text-sm relative overflow-hidden">
+        <div className="absolute inset-0 pattern-dots-ultra opacity-30"></div>
+        <div className="max-w-7xl mx-auto flex items-center justify-between relative z-10">
+          <div className="hidden md:flex items-center space-x-6">
+            <div className="flex items-center space-x-2">
+              <MapPin className="h-4 w-4 animate-pulse" />
+              <span className="font-medium">Congo-Brazzaville</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Phone className="h-4 w-4" />
+              <span>+242 06 123 45 67</span>
+            </div>
           </div>
-          <div className="hidden md:flex items-center space-x-2">
-            <Phone className="h-4 w-4" />
-            <span>+242 06 123 45 67</span>
+          
+          <div className="flex items-center space-x-3 mx-auto md:mx-0">
+            <Sparkles className="h-4 w-4 animate-pulse text-yellow-300" />
+            <span className="font-bold">Livraison gratuite dès 75 000 FCFA</span>
+            <Sparkles className="h-4 w-4 animate-pulse text-yellow-300" />
           </div>
-          <div className="hidden md:flex items-center space-x-2">
-            <Sparkles className="h-4 w-4 animate-pulse" />
-            <span>Livraison gratuite dès 75 000 FCFA</span>
-            <Sparkles className="h-4 w-4 animate-pulse" />
+          
+          <div className="hidden md:flex items-center space-x-4">
+            <Heart className="h-4 w-4 text-red-300 animate-pulse" />
+            <span className="text-xs">Made with love</span>
           </div>
         </div>
       </div>
 
-      <nav className="fixed top-[52px] left-0 right-0 z-50 card-modern border-b border-emerald-100">
+      {/* Main Navbar Ultra */}
+      <nav className={`fixed top-[52px] left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'glass-dark shadow-2xl' : 'glass-ultra'
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo modern */}
-            <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-12 h-12 congo-forest rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Sparkles className="h-6 w-6 text-white" />
+            
+            {/* Logo Ultra */}
+            <Link to="/" className="flex items-center space-x-4 group">
+              <div className="relative">
+                <div className="w-14 h-14 gradient-primary rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl">
+                  <Sparkles className="h-8 w-8 text-white animate-pulse" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounde-full animate-pulse"></div>
               </div>
               <div>
-                <div className="text-2xl font-display font-bold text-gradient">
+                <div className="text-2xl font-space font-bold gradient-text">
                   BB_COLLECTION
                 </div>
-                <div className="text-xs text-emerald-600 font-medium">
-                  Congo-Brazzaville
+                <div className="text-xs text-gray-400 font-medium">
+                  Congo-Brazzaville • Premium
                 </div>
               </div>
             </Link>
 
-            {/* Desktop Menu modern */}
+            {/* Desktop Menu Ultra */}
             <div className="hidden lg:flex items-center space-x-8">
               {menuItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-gray-700 hover:text-emerald-600 transition-all font-medium relative group py-2"
+                  onClick={() => handleMenuClick(item.href)}
+                  className={`relative text-white hover:text-blue-400 transition-all font-medium py-2 px-4 rounded-full hover:bg-white/5 group ${
+                    location.pathname === item.href ? 'text-blue-400' : ''
+                  }`}
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 transition-all group-hover:w-full rounded-full"></span>
+                  <span className="absolute -bottom-1 left-4 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transition-all group-hover:w-8 rounded-full"></span>
                 </Link>
               ))}
             </div>
 
-            {/* Icons modern */}
+            {/* Actions Ultra */}
             <div className="flex items-center space-x-3">
-              <Button variant="ghost" size="icon" className="hidden sm:flex hover:bg-emerald-50 rounded-2xl">
-                <Search className="h-5 w-5 text-emerald-600" />
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="hidden sm:flex text-white hover:bg-white/10 rounded-2xl hover:scale-110 transition-all"
+                onClick={handleSearchClick}
+              >
+                <Search className="h-5 w-5" />
               </Button>
-              <Link to="/mon-compte">
-                <Button variant="ghost" size="icon" className="hover:bg-emerald-50 rounded-2xl">
-                  <User className="h-5 w-5 text-emerald-600" />
-                </Button>
-              </Link>
-              <Link to="/panier">
-                <Button variant="ghost" size="icon" className="relative hover:bg-emerald-50 rounded-2xl">
-                  <ShoppingBag className="h-5 w-5 text-emerald-600" />
-                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse">
-                    0
-                  </span>
-                </Button>
-              </Link>
               
-              {/* Mobile menu button */}
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-white hover:bg-white/10 rounded-2xl hover:scale-110 transition-all"
+                onClick={handleAccountClick}
+              >
+                <User className="h-5 w-5" />
+              </Button>
+              
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="relative text-white hover:bg-white/10 rounded-2xl hover:scale-110 transition-all"
+                onClick={handleCartClick}
+              >
+                <ShoppingBag className="h-5 w-5" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-pink-500 to-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
+              </Button>
+              
+              {/* Mobile Menu Button */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden hover:bg-emerald-50 rounded-2xl"
+                className="lg:hidden text-white hover:bg-white/10 rounded-2xl"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                {isMenuOpen ? <X className="h-5 w-5 text-emerald-600" /> : <Menu className="h-5 w-5 text-emerald-600" />}
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu modern */}
+        {/* Mobile Menu Ultra */}
         {isMenuOpen && (
-          <div className="lg:hidden card-modern border-t border-emerald-100 mt-1">
+          <div className="lg:hidden glass-dark border-t border-white/10 animate-slide-up">
             <div className="px-4 py-6 space-y-4">
-              {menuItems.map((item) => (
+              {menuItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block text-gray-700 hover:text-emerald-600 transition-colors font-medium py-3 border-b border-emerald-50 last:border-b-0 hover:bg-emerald-50 px-4 rounded-xl"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-white hover:text-blue-400 transition-colors font-medium py-4 px-6 hover:bg-white/5 rounded-2xl group"
+                  onClick={() => handleMenuClick(item.href)}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {item.name}
+                  <div className="flex items-center justify-between">
+                    <span>{item.name}</span>
+                    <div className="w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  </div>
                 </Link>
               ))}
+              
+              {/* Mobile Search */}
+              <div className="pt-4 border-t border-white/10">
+                <Button 
+                  variant="ghost" 
+                  className="w-full text-white hover:bg-white/5 rounded-2xl py-4"
+                  onClick={handleSearchClick}
+                >
+                  <Search className="mr-3 h-5 w-5" />
+                  Rechercher
+                </Button>
+              </div>
             </div>
           </div>
         )}
