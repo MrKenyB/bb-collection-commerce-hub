@@ -10,6 +10,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import MonCompte from "./pages/MonCompte";
 import APropos from "./pages/APropos";
 import Panier from "./pages/Panier";
+import VetementsHommes from "./pages/VetementsHommes";
+import VetementsFemmes from "./pages/VetementsFemmes";
+import ChaussuresHommes from "./pages/ChaussuresHommes";
+import SacsFemmes from "./pages/SacsFemmes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,10 +31,10 @@ const App = () => (
           <Route path="/mon-compte" element={<MonCompte />} />
           <Route path="/a-propos" element={<APropos />} />
           <Route path="/panier" element={<Panier />} />
-          <Route path="/vetements-hommes" element={<Boutique />} />
-          <Route path="/chaussures-hommes" element={<Boutique />} />
-          <Route path="/sacs-femmes" element={<Boutique />} />
-          <Route path="/vetements-femmes" element={<Boutique />} />
+          <Route path="/vetements-hommes" element={<VetementsHommes />} />
+          <Route path="/vetements-femmes" element={<VetementsFemmes />} />
+          <Route path="/chaussures-hommes" element={<ChaussuresHommes />} />
+          <Route path="/sacs-femmes" element={<SacsFemmes />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
