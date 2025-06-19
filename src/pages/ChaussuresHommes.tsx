@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
+import FilterSidebar from '@/components/FilterSidebar';
 
 const products = [
   {
