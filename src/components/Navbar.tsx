@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingBag, User, Search, Sparkles } from 'lucide-react';
+import { Menu, X, ShoppingBag, User, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TopBar from './TopBar';
 import SearchModal from './SearchModal';
@@ -46,18 +46,17 @@ const Navbar = () => {
           <div className="flex justify-between items-center h-20">
             
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-4 group">
-              <div className="relative">
-                <div className="w-14 h-14 gradient-primary rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl">
-                  <Sparkles className="h-8 w-8 text-white animate-pulse" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full animate-pulse"></div>
-              </div>
+            <Link to="/" className="group">
               <div>
-                <div className="text-2xl font-space font-bold gradient-text">
+                <div className="text-4xl font-black bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent hover:from-blue-400 hover:via-purple-500 hover:to-pink-500 transition-all duration-500 transform group-hover:scale-110" 
+                     style={{ 
+                       fontFamily: "'Orbitron', 'Exo 2', 'Rajdhani', monospace",
+                       letterSpacing: '0.1em',
+                       textShadow: '0 0 30px rgba(168, 85, 247, 0.4)'
+                     }}>
                   BB_COLLECTION
                 </div>
-                <div className="text-xs text-gray-400 font-medium">
+                <div className="text-xs text-gray-400 font-medium text-center mt-1 group-hover:text-gray-300 transition-colors">
                   Congo-Brazzaville • Premium
                 </div>
               </div>
