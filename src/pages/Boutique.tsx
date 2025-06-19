@@ -1,198 +1,196 @@
 
 import React, { useState } from 'react';
-import { Filter, Grid, List, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Filter, Grid3X3, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 
-const categories = ['Tous', 'Vêtements Hommes', 'Chaussures Hommes', 'Sacs Femmes', 'Vêtements Femmes', 'Chaussures Femmes'];
-const priceRanges = ['Tous les prix', '0-50€', '50-100€', '100-200€', '200€+'];
+const categories = ['Tous', 'Vêtements Hommes', 'Chaussures Hommes', 'Sacs Femmes', 'Vêtements Femmes'];
+const priceRanges = ['Tous les prix', '0-75 000 FCFA', '75 000-150 000 FCFA', '150 000+ FCFA'];
+const sortOptions = ['Nouveautés', 'Prix croissant', 'Prix décroissant', 'Meilleures notes'];
 
 const allProducts = [
   {
     id: 1,
-    name: "Costume Élégant",
-    price: 299,
-    image: "/placeholder.svg",
+    name: "Costume Élégant Premium Congo",
+    price: 180000,
+    image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=800",
     category: "Vêtements Hommes",
-    rating: 4.8,
+    rating: 4.9,
     isNew: true
   },
   {
     id: 2,
-    name: "Sac à Main Cuir",
-    price: 189,
-    image: "/placeholder.svg",
+    name: "Sac Cuir Artisanal Brazzaville",
+    price: 85000,
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=800",
     category: "Sacs Femmes",
-    rating: 4.9,
+    rating: 4.8,
     isNew: false
   },
   {
     id: 3,
-    name: "Chemise Oxford",
-    price: 89,
-    image: "/placeholder.svg",
-    category: "Vêtements Hommes",
+    name: "Sneakers Limited Edition",
+    price: 95000,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800",
+    category: "Chaussures Hommes",
     rating: 4.7,
     isNew: true
   },
   {
     id: 4,
-    name: "Robe Cocktail",
-    price: 159,
-    image: "/placeholder.svg",
+    name: "Robe Africaine Moderne",
+    price: 120000,
+    image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&q=80&w=800",
     category: "Vêtements Femmes",
-    rating: 4.6,
+    rating: 4.9,
     isNew: false
   },
   {
     id: 5,
-    name: "Baskets Premium",
-    price: 129,
-    image: "/placeholder.svg",
-    category: "Chaussures Hommes",
-    rating: 4.5,
-    isNew: true
+    name: "Chemise Business Class",
+    price: 65000,
+    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&q=80&w=800",
+    category: "Vêtements Hommes",
+    rating: 4.7,
+    isNew: false
   },
   {
     id: 6,
-    name: "Sac Bandoulière",
-    price: 99,
-    image: "/placeholder.svg",
+    name: "Sac à Main Designer",
+    price: 155000,
+    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=800",
     category: "Sacs Femmes",
-    rating: 4.7,
-    isNew: false
+    rating: 4.9,
+    isNew: true
   }
 ];
 
 const Boutique = () => {
   const [selectedCategory, setSelectedCategory] = useState('Tous');
   const [selectedPriceRange, setSelectedPriceRange] = useState('Tous les prix');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedSort, setSelectedSort] = useState('Nouveautés');
 
   const filteredProducts = allProducts.filter(product => {
     const matchesCategory = selectedCategory === 'Tous' || product.category === selectedCategory;
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     
     let matchesPrice = true;
     if (selectedPriceRange !== 'Tous les prix') {
       switch (selectedPriceRange) {
-        case '0-50€':
-          matchesPrice = product.price <= 50;
+        case '0-75 000 FCFA':
+          matchesPrice = product.price <= 75000;
           break;
-        case '50-100€':
-          matchesPrice = product.price > 50 && product.price <= 100;
+        case '75 000-150 000 FCFA':
+          matchesPrice = product.price > 75000 && product.price <= 150000;
           break;
-        case '100-200€':
-          matchesPrice = product.price > 100 && product.price <= 200;
-          break;
-        case '200€+':
-          matchesPrice = product.price > 200;
+        case '150 000+ FCFA':
+          matchesPrice = product.price > 150000;
           break;
       }
     }
     
-    return matchesCategory && matchesSearch && matchesPrice;
+    return matchesCategory && matchesPrice;
   });
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black text-white">
       <Navbar />
       
-      <div className="pt-20 pb-16">
-        {/* Header */}
-        <div className="bg-gray-50 py-16">
-          <div className="max-w-6xl mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
-              Notre Boutique
-            </h1>
-            <p className="text-xl text-gray-600 font-light">
-              Découvrez notre collection complète d'articles de mode
-            </p>
+      <div className="pt-32 pb-16">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Breadcrumb */}
+          <div className="flex items-center space-x-2 mb-8 text-gray-400">
+            <Link to="/" className="hover:text-white transition-colors">Accueil</Link>
+            <span>/</span>
+            <span className="text-white">Boutique</span>
           </div>
-        </div>
 
-        {/* Filters */}
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between mb-8">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <input
-                type="text"
-                placeholder="Rechercher un produit..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-              />
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-6xl font-space font-bold mb-6">
+              Notre <span className="gradient-text">Boutique</span>
+            </h1>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Découvrez notre collection complète d'articles de mode premium fait main au Congo
+            </p>
+            <div className="flex items-center justify-center space-x-2 mt-4">
+              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+              <span className="text-gray-400 ml-2">4.8/5 • {allProducts.length} produits</span>
             </div>
+          </div>
 
-            {/* Filters */}
-            <div className="flex flex-wrap gap-4 items-center">
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-48">
-                  <SelectValue placeholder="Catégorie" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          {/* Filters */}
+          <div className="glass-ultra rounded-3xl p-6 mb-12">
+            <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+              <div className="flex flex-wrap gap-4 items-center">
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="w-48 glass-ultra border-white/20 text-white">
+                    <SelectValue placeholder="Catégorie" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-900 border-white/20">
+                    {categories.map((category) => (
+                      <SelectItem key={category} value={category} className="text-white hover:bg-white/10">
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-              <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder="Prix" />
-                </SelectTrigger>
-                <SelectContent>
-                  {priceRanges.map((range) => (
-                    <SelectItem key={range} value={range}>
-                      {range}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
+                  <SelectTrigger className="w-52 glass-ultra border-white/20 text-white">
+                    <SelectValue placeholder="Prix" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-900 border-white/20">
+                    {priceRanges.map((range) => (
+                      <SelectItem key={range} value={range} className="text-white hover:bg-white/10">
+                        {range}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-              {/* View Mode */}
-              <div className="flex border border-gray-200 rounded-lg">
-                <Button
-                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('grid')}
-                  className="rounded-r-none"
-                >
-                  <Grid className="h-4 w-4" />
+                <Select value={selectedSort} onValueChange={setSelectedSort}>
+                  <SelectTrigger className="w-48 glass-ultra border-white/20 text-white">
+                    <SelectValue placeholder="Trier par" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-gray-900 border-white/20">
+                    {sortOptions.map((option) => (
+                      <SelectItem key={option} value={option} className="text-white hover:bg-white/10">
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <Button variant="outline" className="glass-ultra border-white/20 text-white">
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filtres avancés
                 </Button>
-                <Button
-                  variant={viewMode === 'list' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('list')}
-                  className="rounded-l-none"
-                >
-                  <List className="h-4 w-4" />
+                <Button variant="outline" className="glass-ultra border-white/20 text-white">
+                  <Grid3X3 className="w-4 h-4" />
                 </Button>
               </div>
             </div>
           </div>
 
           {/* Results count */}
-          <div className="mb-6">
-            <p className="text-gray-600 font-light">
+          <div className="mb-8">
+            <p className="text-gray-400 text-lg">
               {filteredProducts.length} produit{filteredProducts.length > 1 ? 's' : ''} trouvé{filteredProducts.length > 1 ? 's' : ''}
             </p>
           </div>
 
           {/* Products Grid */}
-          <div className={`grid gap-8 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-              : 'grid-cols-1'
-          }`}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -201,9 +199,13 @@ const Boutique = () => {
           {/* No results */}
           {filteredProducts.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-xl text-gray-500 font-light">
-                Aucun produit ne correspond à vos critères de recherche.
-              </p>
+              <div className="glass-ultra rounded-3xl p-12 max-w-md mx-auto">
+                <div className="text-6xl mb-4">🔍</div>
+                <h3 className="text-xl font-semibold text-white mb-2">Aucun produit trouvé</h3>
+                <p className="text-gray-400">
+                  Essayez de modifier vos critères de recherche.
+                </p>
+              </div>
             </div>
           )}
         </div>

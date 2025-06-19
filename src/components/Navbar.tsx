@@ -4,11 +4,17 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingBag, User, Search, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TopBar from './TopBar';
+import SearchModal from './SearchModal';
+import CartSidebar from './CartSidebar';
+import AccountModal from './AccountModal';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(1);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -28,24 +34,12 @@ const Navbar = () => {
     { name: 'À propos', href: '/a-propos' }
   ];
 
-  const handleCartClick = () => {
-    console.log('Opening cart...');
-  };
-
-  const handleSearchClick = () => {
-    console.log('Opening search...');
-  };
-
-  const handleAccountClick = () => {
-    console.log('Opening account...');
-  };
-
   return (
     <>
       <TopBar />
 
       {/* Main Navbar */}
-      <nav className={`sticky top-0 z-50 transition-all duration-300 ${
+      <nav className={`sticky top-0 z-40 transition-all duration-300 ${
         isScrolled ? 'glass-dark shadow-2xl' : 'glass-ultra'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,7 +85,7 @@ const Navbar = () => {
                 variant="ghost" 
                 size="icon" 
                 className="hidden sm:flex text-white hover:bg-white/10 rounded-2xl hover:scale-110 transition-all"
-                onClick={handleSearchClick}
+                onClick={() => setIsSearchOpen(true)}
               >
                 <Search className="h-5 w-5" />
               </Button>
@@ -100,7 +94,7 @@ const Navbar = () => {
                 variant="ghost" 
                 size="icon" 
                 className="text-white hover:bg-white/10 rounded-2xl hover:scale-110 transition-all"
-                onClick={handleAccountClick}
+                onClick={() => setIsAccountOpen(true)}
               >
                 <User className="h-5 w-5" />
               </Button>
@@ -109,7 +103,7 @@ const Navbar = () => {
                 variant="ghost" 
                 size="icon" 
                 className="relative text-white hover:bg-white/10 rounded-2xl hover:scale-110 transition-all"
-                onClick={handleCartClick}
+                onClick={() => setIsCartOpen(true)}
               >
                 <ShoppingBag className="h-5 w-5" />
                 {cartCount > 0 && (
@@ -156,7 +150,10 @@ const Navbar = () => {
                 <Button 
                   variant="ghost" 
                   className="w-full text-white hover:bg-white/5 rounded-2xl py-4"
-                  onClick={handleSearchClick}
+                  onClick={() => {
+                    setIsSearchOpen(true);
+                    setIsMenuOpen(false);
+                  }}
                 >
                   <Search className="mr-3 h-5 w-5" />
                   Rechercher
@@ -166,6 +163,11 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+
+      {/* Modals */}
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <AccountModal isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)} />
     </>
   );
 };
